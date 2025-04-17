@@ -23,7 +23,7 @@
 
 >[!CAUTION]
 >
->русификатор находится в бета версии. Если вы заметили неточности, баги или иные проблемы создайте баг-репорт в [Issues](https://github.com/bazelik-null/ENAbbq_rus/issues).
+>Если вы заметили неточности, баги или иные проблемы создайте баг-репорт в [Issues](https://github.com/bazelik-null/ENAbbq_rus/issues).
 
 Приятной игры!
 
