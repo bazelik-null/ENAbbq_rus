@@ -1,17 +1,28 @@
 {
     "files": [
         {
-            "src": "resources/yarndialogue_assets_all_6cde9116b898ddabb0291f5836395399.bundle",
-            "dst": "ENA-4-DreamBBQ_Data/StreamingAssets/aa/StandaloneWindows64/yarndialogue_assets_all_6cde9116b898ddabb0291f5836395399.bundle"
+            "src": "resources/yarndialogue_assets_all_7acf6b9d978e1fa4d72fa4cb2910adda.bundle",
+            "dst": "ENA-4-DreamBBQ_Data/StreamingAssets/aa/StandaloneWindows64/yarndialogue_assets_all_7acf6b9d978e1fa4d72fa4cb2910adda.bundle"
         },
         {
             "src": "resources/font_res.resS",
             "dst": "ENA-4-DreamBBQ_Data/font_res.resS"
         },
         {
+            "src": "resources/font_modern.resS",
+            "dst": "ENA-4-DreamBBQ_Data/font_modern.resS"
+        },
+        {
+            "src": "resources/catalog.json",
+            "dst": "ENA-4-DreamBBQ_Data/StreamingAssets/aa/catalog.json"
+        },
+        {
             "src": "resources/resources.assets",
             "dst": "ENA-4-DreamBBQ_Data/resources.assets"
-        },
+        }
+    ],
+
+    "WIP": [
         {
             "src": "resources/sharedassets1.assets",
             "dst": "ENA-4-DreamBBQ_Data/sharedassets1.assets"
@@ -23,14 +34,6 @@
         {
             "src": "resources/JoelG.ENA4.dll",
             "dst": "ENA-4-DreamBBQ_Data/Managed/JoelG.ENA4.dll"
-        },
-        {
-            "src": "resources/catalog.json",
-            "dst": "ENA-4-DreamBBQ_Data/StreamingAssets/aa/catalog.json"
-        },
-        {
-            "src": "resources/font_modern.resS",
-            "dst": "ENA-4-DreamBBQ_Data/font_modern.resS"
         },
         {
             "src": "resources/YarnSpinner.Unity.dll",
