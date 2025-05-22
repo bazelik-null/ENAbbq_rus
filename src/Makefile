@@ -8,11 +8,11 @@ all: help
 
 windows:
 	@echo "Сборка проекта для Windows..."
-	@CGO_ENABLED=$(CGO_ENABLED) CC=$(CC) GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -H=windowsgui" -o $(OUTPUT_WINDOWS) ./windows/*.go
+	@CGO_ENABLED=$(CGO_ENABLED) CC=$(CC) GOOS=windows GOARCH=amd64 go build -ldflags="-s -w -H=windowsgui" -o $(OUTPUT_WINDOWS) ./installer/*.go
 
 linux:
 	@echo "Сборка проекта для Linux..."
-	@GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o $(OUTPUT_LINUX) ./linux/*.go
+	@GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o $(OUTPUT_LINUX) ./installer/*.go
 
 clean:
 	@echo "Очистка..."
