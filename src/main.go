@@ -37,7 +37,7 @@ func main() {
 	w.Show()
 
 	go func() {
-		err := install()
+		err := download()
 		if err != 0 {
 			w.SetContent(pageERR(w, err))
 		} else {
@@ -189,7 +189,7 @@ func browseFile(w fyne.Window, onPathSelected func(string)) {
 func pageEnd(path string) *fyne.Container {
 	appDir, _ := os.Getwd()
 
-	err := inject(path)
+	err := install(path)
 
 	os.RemoveAll(filepath.Join(appDir, "resources"))
 
