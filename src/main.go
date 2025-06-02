@@ -21,10 +21,12 @@ func main() {
 	a := app.New()
 	w := a.NewWindow("Установщик русификатора для ENA: Dream BBQ")
 	w.Resize(fyne.NewSize(800, 600))
-	a.Settings().SetTheme(theme.DarkTheme())
 
 	mainLabel := widget.NewLabel("Пожалуйста подождите, идёт загрузка ресурсов установщика...")
-	init := container.New(layout.NewCenterLayout(), mainLabel)
+	loadingWidget := widget.NewActivity()
+	loadingWidget.Start()
+	init := container.New(layout.NewVBoxLayout(), mainLabel, loadingWidget)
+	init = container.New(layout.NewCenterLayout(), init)
 	w.SetContent(init)
 	w.Show()
 
@@ -82,9 +84,16 @@ func pageERR(_ fyne.Window, err int) *fyne.Container {
 
 func pageInstall(w fyne.Window) *fyne.Container {
 	var path string
+	var steamIcon fyne.Resource
 
 	appDir, _ := os.Getwd()
-	steamIcon, _ := fyne.LoadResourceFromPath(filepath.Join(appDir, "resources", "steamIcon.png"))
+	currentTheme := fyne.CurrentApp().Settings().Theme()
+
+	if currentTheme == theme.DarkTheme() {
+		steamIcon, _ = fyne.LoadResourceFromPath(filepath.Join(appDir, "resources", "steamIconW.png"))
+	} else {
+		steamIcon, _ = fyne.LoadResourceFromPath(filepath.Join(appDir, "resources", "steamIcon.png"))
+	}
 
 	labelPath := widget.NewLabel("")
 	errorLabel := canvas.NewText("", color.RGBA{255, 0, 0, 255})
