@@ -25,21 +25,26 @@ func main() {
 	mainLabel := widget.NewLabel("Пожалуйста подождите, идёт загрузка ресурсов установщика...")
 	loadingWidget := widget.NewActivity()
 	loadingWidget.Start()
-	init := container.New(layout.NewVBoxLayout(), mainLabel, loadingWidget)
-	init = container.New(layout.NewCenterLayout(), init)
+
+	init := container.New(layout.NewCenterLayout(),
+		container.New(layout.NewVBoxLayout(),
+			mainLabel,
+			loadingWidget,
+		),
+	)
+
 	w.SetContent(init)
 	w.Show()
 
-	installFunc := func() {
+	go func() {
 		err := install()
 		if err != 0 {
 			w.SetContent(pageERR(w, err))
 		} else {
 			w.SetContent(page0(w))
 		}
-	}
+	}()
 
-	go installFunc()
 	fyne.CurrentApp().Run()
 }
 
@@ -55,14 +60,14 @@ func page0(w fyne.Window) *fyne.Container {
 		w.SetContent(pageInstall(w))
 	})
 
-	page0 := container.New(layout.NewVBoxLayout(),
-		mainLabel,
-		teamLabel,
-		btnContinue,
-		errorLabel,
+	page0 := container.New(layout.NewCenterLayout(),
+		container.New(layout.NewVBoxLayout(),
+			mainLabel,
+			teamLabel,
+			btnContinue,
+			errorLabel,
+		),
 	)
-
-	page0 = container.New(layout.NewCenterLayout(), page0)
 
 	checkIntegrity(btnContinue, errorLabel)
 
@@ -70,13 +75,18 @@ func page0(w fyne.Window) *fyne.Container {
 }
 
 func pageERR(_ fyne.Window, err int) *fyne.Container {
+	errLabel := canvas.NewText("[FATL]: Произошла критическая ошибка при загрузке файлов.", color.RGBA{255, 0, 0, 255})
+	errCode := canvas.NewText("[FATL]: Error "+fmt.Sprint(err), color.RGBA{255, 0, 0, 255})
+
+	buttonClose := widget.NewButtonWithIcon("Закрыть", theme.WindowCloseIcon(), func() {
+		fyne.CurrentApp().Quit()
+	})
+
 	pageERRContainer := container.New(layout.NewCenterLayout(),
 		container.New(layout.NewVBoxLayout(),
-			canvas.NewText("[FATL]: Произошла критическая ошибка при загрузке файлов.", color.RGBA{255, 0, 0, 255}),
-			canvas.NewText("[FATL]: Error "+fmt.Sprint(err), color.RGBA{255, 0, 0, 255}),
-			widget.NewButtonWithIcon("Закрыть", theme.WindowCloseIcon(), func() {
-				fyne.CurrentApp().Quit()
-			}),
+			errLabel,
+			errCode,
+			buttonClose,
 		),
 	)
 	return pageERRContainer
@@ -95,6 +105,7 @@ func pageInstall(w fyne.Window) *fyne.Container {
 		steamIcon, _ = fyne.LoadResourceFromPath(filepath.Join(appDir, "resources", "steamIcon.png"))
 	}
 
+	label := widget.NewLabel("Выберите путь до игры. Если она установлена по стандартному пути нажмите на кнопку Steam.")
 	labelPath := widget.NewLabel("")
 	errorLabel := canvas.NewText("", color.RGBA{255, 0, 0, 255})
 
@@ -102,8 +113,6 @@ func pageInstall(w fyne.Window) *fyne.Container {
 		w.SetContent(pageEnd(path))
 	})
 	btnContinue.Disable()
-
-	buttonsContainer := container.New(layout.NewVBoxLayout())
 
 	btnSteam := widget.NewButtonWithIcon("Steam", steamIcon, func() {
 		if runtime.GOOS == "windows" {
@@ -124,18 +133,16 @@ func pageInstall(w fyne.Window) *fyne.Container {
 		})
 	})
 
-	buttonsContainer.Add(btnSteam)
-	buttonsContainer.Add(btnBrowse)
-
-	pageInstall := container.New(layout.NewVBoxLayout(),
-		widget.NewLabel("Выберите путь до игры. Если она установлена по стандартному пути нажмите на кнопку Steam."),
-		buttonsContainer,
-		labelPath,
-		errorLabel,
-		btnContinue,
+	pageInstall := container.New(layout.NewCenterLayout(),
+		container.New(layout.NewVBoxLayout(),
+			label,
+			btnSteam,
+			btnBrowse,
+			labelPath,
+			errorLabel,
+			btnContinue,
+		),
 	)
-
-	pageInstall = container.New(layout.NewCenterLayout(), pageInstall)
 
 	return pageInstall
 }
@@ -181,26 +188,37 @@ func browseFile(w fyne.Window, onPathSelected func(string)) {
 
 func pageEnd(path string) *fyne.Container {
 	appDir, _ := os.Getwd()
+
 	err := inject(path)
+
 	os.RemoveAll(filepath.Join(appDir, "resources"))
+
 	if err != nil {
+		errLabel := canvas.NewText("[FATL]: Произошла критическая ошибка при инъекции ассетов.", color.RGBA{255, 0, 0, 255})
+		errCode := canvas.NewText("[FATL]: Error "+fmt.Sprint(err), color.RGBA{255, 0, 0, 255})
+
+		buttonClose := widget.NewButtonWithIcon("Закрыть", theme.WindowCloseIcon(), func() {
+			fyne.CurrentApp().Quit()
+		})
+
 		pageEndContainer := container.New(layout.NewCenterLayout(),
 			container.New(layout.NewVBoxLayout(),
-				canvas.NewText("[FATL]: Произошла критическая ошибка при инъекции ассетов.", color.RGBA{255, 0, 0, 255}),
-				canvas.NewText("[FATL]: Error "+fmt.Sprint(err), color.RGBA{255, 0, 0, 255}),
-				widget.NewButtonWithIcon("Закрыть", theme.WindowCloseIcon(), func() {
-					fyne.CurrentApp().Quit()
-				}),
+				errLabel,
+				errCode,
+				buttonClose,
 			),
 		)
 		return pageEndContainer
 	} else {
+		label := widget.NewLabel("Спасибо за установку")
+		buttonClose := widget.NewButtonWithIcon("Закрыть", theme.WindowCloseIcon(), func() {
+			fyne.CurrentApp().Quit()
+		})
+
 		pageEndContainer := container.New(layout.NewCenterLayout(),
 			container.New(layout.NewVBoxLayout(),
-				widget.NewLabel("Спасибо за установку"),
-				widget.NewButtonWithIcon("Закрыть", theme.WindowCloseIcon(), func() {
-					fyne.CurrentApp().Quit()
-				}),
+				label,
+				buttonClose,
 			),
 		)
 		return pageEndContainer
