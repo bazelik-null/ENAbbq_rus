@@ -18,6 +18,7 @@ import (
 )
 
 func main() {
+	// Init app
 	a := app.New()
 	w := a.NewWindow("Установщик русификатора для ENA: Dream BBQ")
 	w.Resize(fyne.NewSize(800, 600))
@@ -36,6 +37,7 @@ func main() {
 	w.SetContent(init)
 	w.Show()
 
+	// Download files in goroutine
 	go func() {
 		err := download()
 		if err != 0 {
@@ -69,6 +71,7 @@ func page0(w fyne.Window) *fyne.Container {
 		),
 	)
 
+	// Check integrity of downloaded files
 	checkIntegrity(btnContinue, errorLabel)
 
 	return page0
@@ -99,6 +102,7 @@ func pageInstall(w fyne.Window) *fyne.Container {
 	appDir, _ := os.Getwd()
 	currentTheme := fyne.CurrentApp().Settings().Theme()
 
+	// Load an icon depending on theme
 	if currentTheme == theme.DarkTheme() {
 		steamIcon, _ = fyne.LoadResourceFromPath(filepath.Join(appDir, "resources", "steamIconW.png"))
 	} else {
@@ -115,20 +119,25 @@ func pageInstall(w fyne.Window) *fyne.Container {
 	btnContinue.Disable()
 
 	btnSteam := widget.NewButtonWithIcon("Steam", steamIcon, func() {
+		// Choose default path to game depending on OS
 		if runtime.GOOS == "windows" {
 			path = filepath.Join("C:\\", "Program Files (x86)", "Steam", "steamapps", "common", "ENA Dream BBQ")
 		} else {
 			homeDir := os.Getenv("HOME")
 			path = filepath.Join(homeDir, ".steam", "root", "steamapps", "common", "ENA Dream BBQ")
 		}
+		// Check if there is executable game file
 		checkExecutable(path, btnContinue, errorLabel)
+		// Display chosen path
 		labelPath.SetText("Выбранный путь: " + path)
 	})
 
 	btnBrowse := widget.NewButtonWithIcon("Открыть", theme.SearchIcon(), func() {
 		browseFile(w, func(selectedPath string) {
 			path = selectedPath
+			// Check if there is executable game file
 			checkExecutable(path, btnContinue, errorLabel)
+			// Display chosen path
 			labelPath.SetText("Выбранный путь: " + path)
 		})
 	})

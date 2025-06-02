@@ -12,11 +12,13 @@ func install(path string) error {
 	appDir, _ := os.Getwd()
 	metaPath := filepath.Join(appDir, "resources", "meta.json")
 
+	// Open meta.json
 	data, err := os.ReadFile(metaPath)
 	if err != nil {
 		return err
 	}
 
+	// Extract data
 	var meta struct {
 		Files []struct {
 			Src string `json:"src"`
@@ -25,6 +27,7 @@ func install(path string) error {
 	}
 	json.Unmarshal(data, &meta)
 
+	// Copy all files
 	for _, file := range meta.Files {
 		src := filepath.Join(appDir, file.Src)
 		dst := filepath.Join(path, file.Dst)

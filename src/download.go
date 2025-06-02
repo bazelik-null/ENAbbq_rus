@@ -12,8 +12,10 @@ import (
 
 func getURL() (string, int) {
 	client := &http.Client{}
+
 	repoOwner := "bazelik-null"
 	repoName := "ENAbbq_rus"
+
 	req, _ := http.NewRequest("GET", fmt.Sprintf("https://api.github.com/repos/%s/%s/releases/latest", repoOwner, repoName), nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3")
 
@@ -35,6 +37,7 @@ func getURL() (string, int) {
 	}
 	_ = json.NewDecoder(resp.Body).Decode(&release)
 
+	// Search for assets archive
 	for _, asset := range release.Assets {
 		if asset.Name == "resources.zip" {
 			return asset.BrowserDownloadURL, http.StatusOK
@@ -75,6 +78,7 @@ func download() int {
 		return code
 	}
 
+	// Check if URL is available
 	if _, err := http.Head(url); err != nil {
 		return http.StatusBadGateway
 	}
@@ -88,6 +92,7 @@ func download() int {
 	r, _ := zip.OpenReader(filename)
 	defer r.Close()
 
+	// Extract zip archive
 	for _, f := range r.File {
 		rc, _ := f.Open()
 		defer rc.Close()
@@ -103,6 +108,7 @@ func download() int {
 		}
 	}
 
+	// Delete temporary zip archive
 	_ = os.Remove(filename)
 	return 0
 }
