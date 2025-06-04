@@ -19,10 +19,7 @@
         {
             "src": "resources/resources.assets",
             "dst": "ENA-4-DreamBBQ_Data/resources.assets"
-        }
-    ],
-
-    "WIP": [
+        },
         {
             "src": "resources/sharedassets1.assets",
             "dst": "ENA-4-DreamBBQ_Data/sharedassets1.assets"
@@ -38,6 +35,58 @@
         {
             "src": "resources/YarnSpinner.Unity.dll",
             "dst": "ENA-4-DreamBBQ_Data/Managed/YarnSpinner.Unity.dll"
+        },
+        {
+            "src": "resources/LMirman.RewiredGlyphs.dll",
+            "dst": "ENA-4-DreamBBQ_Data/Managed/LMirman.RewiredGlyphs.dll"
+        },
+        {
+            "src": "resources/levels/level1",
+            "dst": "ENA-4-DreamBBQ_Data/level1"
+        },
+        {
+            "src": "resources/levels/level2",
+            "dst": "ENA-4-DreamBBQ_Data/level2"
+        },
+        {
+            "src": "resources/levels/level3",
+            "dst": "ENA-4-DreamBBQ_Data/level3"
+        },
+        {
+            "src": "resources/levels/level4",
+            "dst": "ENA-4-DreamBBQ_Data/level4"
+        },
+        {
+            "src": "resources/levels/level5",
+            "dst": "ENA-4-DreamBBQ_Data/level5"
+        },
+        {
+            "src": "resources/levels/level6",
+            "dst": "ENA-4-DreamBBQ_Data/level6"
+        },
+        {
+            "src": "resources/levels/level7",
+            "dst": "ENA-4-DreamBBQ_Data/leve7"
+        },
+        {
+            "src": "resources/levels/level8",
+            "dst": "ENA-4-DreamBBQ_Data/level8"
+        },
+        {
+            "src": "resources/levels/level9",
+            "dst": "ENA-4-DreamBBQ_Data/level9"
+        },
+        {
+            "src": "resources/levels/level10",
+            "dst": "ENA-4-DreamBBQ_Data/leve10"
+        },
+        {
+            "src": "resources/levels/level11",
+            "dst": "ENA-4-DreamBBQ_Data/level11"
         }
+    ],
+
+    "WIP": [
+
     ]
 }
