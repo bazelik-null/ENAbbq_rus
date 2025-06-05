@@ -39,7 +39,7 @@ func install(path string) error {
 	}
 
 	// Copy level* files
-	for i := 0; i <= 11; i++ {
+	for i := 1; i <= 11; i++ {
 		level := "level" + fmt.Sprint(i)
 		srcLevel := filepath.Join(appDir, "resources", "levels", level)
 		dstLevel := filepath.Join(path, "ENA-4-DreamBBQ_Data", level)
