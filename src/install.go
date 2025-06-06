@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"os"
 	"path/filepath"
@@ -38,17 +37,6 @@ func install(path string) error {
 		}
 	}
 
-	// Copy level* files
-	for i := 1; i <= 11; i++ {
-		level := "level" + fmt.Sprint(i)
-		srcLevel := filepath.Join(appDir, "resources", "levels", level)
-		dstLevel := filepath.Join(path, "ENA-4-DreamBBQ_Data", level)
-
-		err := copyFile(srcLevel, dstLevel)
-		if err != nil {
-			return err
-		}
-	}
 	return nil
 }
 

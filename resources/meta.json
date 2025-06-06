@@ -40,6 +40,8 @@
             "src": "resources/LMirman.RewiredGlyphs.dll",
             "dst": "ENA-4-DreamBBQ_Data/Managed/LMirman.RewiredGlyphs.dll"
         },
+
+        
         {
             "src": "resources/levels/level1",
             "dst": "ENA-4-DreamBBQ_Data/level1"
@@ -66,7 +68,7 @@
         },
         {
             "src": "resources/levels/level7",
-            "dst": "ENA-4-DreamBBQ_Data/leve7"
+            "dst": "ENA-4-DreamBBQ_Data/level7"
         },
         {
             "src": "resources/levels/level8",
@@ -78,7 +80,7 @@
         },
         {
             "src": "resources/levels/level10",
-            "dst": "ENA-4-DreamBBQ_Data/leve10"
+            "dst": "ENA-4-DreamBBQ_Data/level10"
         },
         {
             "src": "resources/levels/level11",
