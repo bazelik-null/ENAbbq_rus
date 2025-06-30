@@ -1,0 +1,3 @@
+[submodule "BBQDeploy"]
+	path = BBQDeploy
+	url = https://github.com/bazelik-null/BBQDeploy.git
