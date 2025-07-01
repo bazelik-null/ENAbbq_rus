@@ -1,0 +1,25 @@
+#Global
+ButtonClose = "Закрыть"
+ExecutableName = "ENA-4-DreamBBQ.exe"
+Name = "ENA Dream BBQ"
+# Download error
+DownloadErrorLabel = "[FATL]: Произошла критическая ошибка при загрузке файлов."
+# First page
+MainLabel = "Добро пожаловать в установщик русификатора для ENA: Dream BBQ"
+TeamLabel = "  by BARBEQUE TEAM" # Don't forget 2 spaces at start
+ButtonContinue = "Продолжить"
+# Second page
+isSteamEnabled = true
+isCheckExecutableEnabled = true
+ChoosePathLabel = "Выберите путь до игры. Если она установлена по стандартному пути нажмите на кнопку Steam."
+ButtonInstall = "Установить"
+LabelPath = "Выбранный путь: "
+ButtonBrowse = "Открыть"
+#Executable error
+ExecutableError = "[ERROR]: %s не найден, выберите папку с исполняемым файлом игры"
+#Integrity error
+IntegrityError = "[FATL]: \"resources\" не найдено."
+#Injection error
+InjectionError = "[FATL]: Произошла критическая ошибка при инъекции ассетов."
+#Third page
+ThanksLabel = "Спасибо за установку!"
